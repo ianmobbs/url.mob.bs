@@ -1,5 +1,6 @@
 import Router from '@koa/router';
 import {UserService} from "../services/user-service";
+import UserAlreadyExistsError from "../exception/user-already-exists-error";
 
 export default class AccountsRouter {
     private router: Router;
@@ -31,12 +32,20 @@ export default class AccountsRouter {
             try {
                 await this.userService.createUser(email, password);
             } catch (e) {
-                console.log(e);
-                ctx.response.body = {
-                    "error": "There is already a user with that email."
+                if (e instanceof UserAlreadyExistsError) {
+                    ctx.response.body = {
+                        "error": "There is already a user with that email."
+                    }
+                    ctx.status = 409
+                    return;
+                } else {
+                    console.log(e);
+                    ctx.response.body = {
+                        "error": e
+                    }
+                    ctx.status = 500
+                    return;
                 }
-                ctx.status = 401
-                return;
             }
             ctx.response.body = {
                 "message": `Successfully created user ${email}`

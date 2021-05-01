@@ -18,12 +18,16 @@ export default class URLManager {
         })
     }
 
-    public getUrl = async (user: User, shortUrlId: string): Promise<URL> => {
+    public getURLByShortID = async (user: User, shortUrlId: string): Promise<URL> => {
         return this.repository.findOne({user, shortUrlId});
     }
 
+    public getURLByLongURL = async (user: User, longURL: string): Promise<URL> => {
+        return this.repository.findOne({user, longURL})
+    }
+
     public deleteUrl = async (user: User, shortUrlId: string): Promise<URL> => {
-        const urlObjToDelete = this.getUrl(user, shortUrlId);
+        const urlObjToDelete = this.getURLByShortID(user, shortUrlId);
         await this.repository.delete({user, shortUrlId})
         return urlObjToDelete;
     }

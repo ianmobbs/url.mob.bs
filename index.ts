@@ -41,5 +41,9 @@ export class App {
     }
 }
 
+process.on('uncaughtException', function (err) {
+    console.log('Caught exception: ', err);
+});
+
 const app = new App();
 app.listen();

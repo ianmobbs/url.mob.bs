@@ -1,6 +1,7 @@
 import Router from '@koa/router';
 import { ParameterizedContext } from 'koa';
 import URLService from "../services/url-service";
+import URLAlreadyExistsError from "../exception/url-already-exists-error";
 
 export default class URLRouter {
     private router: Router;
@@ -30,11 +31,25 @@ export default class URLRouter {
                 return;
             }
 
-            const urlObj = await this.urlService.generateShortUrl(ctx.state.user, longUrl, shortUrlId)
-            ctx.body = {
-                url: urlObj.shortUrlId
+            try {
+                const urlObj = await this.urlService.generateShortUrl(ctx.state.user, longUrl, shortUrlId)
+                ctx.body = {
+                    url: urlObj.shortUrlId
+                }
+                ctx.status = 200
+            } catch (e) {
+                if (e instanceof URLAlreadyExistsError) {
+                    ctx.body = {
+                        "error": `User ${ctx.state.user.email} has already shortened ${longUrl}`
+                    }
+                    ctx.status = 409
+                } else {
+                    ctx.body = {
+                        "error": e
+                    }
+                    ctx.status = 500
+                }
             }
-            ctx.status = 200
         });
 
         // Get the long URL for a shortened URL ID
