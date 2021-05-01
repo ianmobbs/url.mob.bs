@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique, OneToMany} from "typeorm";
 import User from "./User";
+import Click from "./Click";
 
 @Entity()
 export default class URL {
@@ -9,6 +10,9 @@ export default class URL {
 
     @ManyToOne(() => User)
     user: User;
+
+    @OneToMany(() => Click, click => click.url, {eager: true})
+    clicks: Click[]
 
     @Column({unique: true})
     shortUrlId: string;

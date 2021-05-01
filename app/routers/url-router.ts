@@ -19,6 +19,14 @@ export default class URLRouter {
     }
 
     private setupRoutes = () => {
+        // Get all URLs
+        this.router.get('/', async (ctx) => {
+            ctx.body = {
+                urls: await this.urlService.getAllURLsForUser(ctx.state.user)
+            };
+            ctx.status = 200
+        });
+
         // Create new short URL
         this.router.post('/', async (ctx: ParameterizedContext) => {
             const longUrl: string = ctx.request.body.longUrl;

@@ -10,6 +10,10 @@ export default class URLService {
         this.urlManager = new URLManager();
     }
 
+    public getAllURLsForUser = (user: User): Promise<URL[]> => {
+        return this.urlManager.getAllURLsForUser(user);
+    }
+
     public generateShortUrl = async (user: User, longUrl: string, shortUrlId?: string): Promise<URL> => {
         const shortId = shortUrlId ?? this.generateId();
         const existingUrl = await this.urlManager.getURLByLongURL(user, longUrl);
@@ -20,7 +24,7 @@ export default class URLService {
     }
 
     public getLongUrl = async (user: User, shortUrlId: string): Promise<URL> => {
-        return this.urlManager.getURLByShortID(user, shortUrlId);
+        return this.urlManager.getURLByShortIDAndUser(user, shortUrlId);
     }
 
     public deleteShortUrl = async (user: User, shortUrlId: string): Promise<URL> => {

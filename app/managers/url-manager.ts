@@ -10,6 +10,10 @@ export default class URLManager {
         this.setupRepository()
     }
 
+    public getAllURLsForUser = async (user: User): Promise<URL[]> => {
+        return this.repository.find({user});
+    }
+
     public createUrl = async (user: User, shortUrlId: string, longURL: string): Promise<URL> => {
         return this.repository.save({
             user,
@@ -18,12 +22,12 @@ export default class URLManager {
         })
     }
 
-    public getURLByShortID = async (user: User, shortUrlId: string): Promise<URL> => {
-        return this.repository.findOne({user, shortUrlId});
+    public getURLByShortID = async (shortUrlId: string): Promise<URL> => {
+        return this.repository.findOne({shortUrlId})
     }
 
-    public getURLByShortIDForRedirect = async (shortUrlId: string): Promise<URL> => {
-        return this.repository.findOne({shortUrlId})
+    public getURLByShortIDAndUser = async (user: User, shortUrlId: string): Promise<URL> => {
+        return this.repository.findOne({user, shortUrlId});
     }
 
     public getURLByLongURL = async (user: User, longURL: string): Promise<URL> => {
@@ -31,7 +35,7 @@ export default class URLManager {
     }
 
     public deleteUrl = async (user: User, shortUrlId: string): Promise<URL> => {
-        const urlObjToDelete = this.getURLByShortID(user, shortUrlId);
+        const urlObjToDelete = this.getURLByShortIDAndUser(user, shortUrlId);
         await this.repository.delete({user, shortUrlId})
         return urlObjToDelete;
     }

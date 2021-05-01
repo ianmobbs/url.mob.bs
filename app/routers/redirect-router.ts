@@ -1,13 +1,16 @@
 import Router from '@koa/router';
 import URLManager from "../managers/url-manager";
+import ClickManager from "../managers/click-manager";
 
 export default class RedirectRouter {
     private router: Router;
     private urlManager: URLManager;
+    private clickManager: ClickManager;
 
     constructor() {
         this.router = new Router();
         this.urlManager = new URLManager();
+        this.clickManager = new ClickManager();
     }
 
     public init = (): Router => {
@@ -26,7 +29,7 @@ export default class RedirectRouter {
                 return
             }
 
-            const urlObj = await this.urlManager.getURLByShortIDForRedirect(shortUrlId);
+            const urlObj = await this.urlManager.getURLByShortID(shortUrlId);
             if (!urlObj) {
                 ctx.body = {
                     "error": "Please provide a valid short URL ID"
@@ -35,6 +38,7 @@ export default class RedirectRouter {
                 return
             }
 
+            this.clickManager.addClick(urlObj);
             return ctx.response.redirect(urlObj.longURL);
         })
     }
