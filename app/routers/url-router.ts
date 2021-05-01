@@ -19,7 +19,7 @@ export default class URLRouter {
 
     private setupRoutes = () => {
         // Create new short URL
-        this.router.post('/', (ctx: ParameterizedContext) => {
+        this.router.post('/', async (ctx: ParameterizedContext) => {
             const longUrl: string = ctx.request.body.longUrl;
             const shortUrlId: string | undefined = ctx.request.body.urlId;
             if (!longUrl || !this.isValidUrl(longUrl)) {
@@ -30,15 +30,15 @@ export default class URLRouter {
                 return;
             }
 
-            const shortUrl = this.urlService.generateShortUrl(longUrl, shortUrlId)
+            const urlObj = await this.urlService.generateShortUrl(longUrl, shortUrlId)
             ctx.body = {
-                url: shortUrl
+                url: urlObj.shortUrlId
             }
             ctx.status = 200
         });
 
         // Get the long URL for a shortened URL ID
-        this.router.get('/:shortUrlId', (ctx: ParameterizedContext) => {
+        this.router.get('/:shortUrlId', async (ctx: ParameterizedContext) => {
             const shortUrlId = ctx.params.shortUrlId;
             if (!shortUrlId) {
                 ctx.body = {
@@ -47,9 +47,9 @@ export default class URLRouter {
                 ctx.status = 400
             }
 
-            const longUrl = this.urlService.getLongUrl(shortUrlId);
+            const urlObj = await this.urlService.getLongUrl(shortUrlId);
             ctx.body = {
-                url: longUrl
+                url: urlObj.longURL
             }
             ctx.status = 200
         });

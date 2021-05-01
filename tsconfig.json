@@ -4,6 +4,8 @@
   "display": "Node 14",
 
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": ["es2020", "dom"],
     "module": "commonjs",
     "target": "es2020",

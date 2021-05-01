@@ -1,0 +1,24 @@
+{
+   "type": "sqlite",
+   "database": "./url.db",
+   "synchronize": true,
+   "logging": false,
+   "autoSchemaSync": true,
+   "entities": [
+      "app/model/entities/**/*.ts"
+   ],
+   "migrations": [
+      "app/model/migrations/**/*.ts"
+   ],
+   "subscribers": [
+      "app/model/subscribers/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "app/model/entities",
+      "migrationsDir": "app/model/migrations",
+      "subscribersDir": "app/model/subscribers"
+   },
+   "extra": {
+      "connectionLimit": 10
+   }
+}

@@ -1,17 +1,24 @@
+import URLManager from "../managers/url-manager";
+import URL from "../model/entities/URL";
+
 export default class URLService {
+    private urlManager: URLManager;
+
     constructor() {
+        this.urlManager = new URLManager();
     }
 
-    public generateShortUrl = (longUrl: string, shortUrlId?: string): string => {
-        if (shortUrlId) {
-            return shortUrlId;
-        } else {
-            return this.generateId();
-        }
+    public generateShortUrl = async (longUrl: string, shortUrlId?: string): Promise<URL> => {
+        const shortId = shortUrlId ?? this.generateId();
+        const urlObj = await this.urlManager.createUrl(shortId, longUrl);
+        console.log(`Created ${JSON.stringify(urlObj)}`)
+        return urlObj
     }
 
-    public getLongUrl = (shortUrlId: string): string => {
-        return this.generateId();
+    public getLongUrl = async (shortUrlId: string): Promise<URL> => {
+        const urlObj = await this.urlManager.getUrl(shortUrlId);
+        console.log(`Received ${JSON.stringify(urlObj)}`)
+        return urlObj;
     }
 
     private generateId = (len: number = 8): string => {

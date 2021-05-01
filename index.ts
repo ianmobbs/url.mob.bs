@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from '@koa/router';
 import ApiRouter from "./app/routers/api-router";
 import bodyParser from 'koa-bodyparser';
+import 'reflect-metadata';
 
 const PORT = 3000;
 
