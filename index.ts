@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import ApiRouter from "./app/routers/api-router";
+import bodyParser from 'koa-bodyparser';
 
 const PORT = 3000;
 
@@ -15,6 +16,7 @@ export class App {
         this.apiRouter = new ApiRouter()
 
         this.setupRoutes();
+        this.app.use(bodyParser());
         this.app.use(this.log);
         this.app.use(this.rootRouter.routes());
     }

@@ -1,7 +1,7 @@
 import Router from '@koa/router';
 import { ParameterizedContext } from 'koa';
 
-export class HealthcheckRouter {
+export default class HealthcheckRouter {
     private router: Router;
 
     constructor() {
