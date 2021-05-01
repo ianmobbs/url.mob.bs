@@ -22,6 +22,10 @@ export default class URLManager {
         return this.repository.findOne({user, shortUrlId});
     }
 
+    public getURLByShortIDForRedirect = async (shortUrlId: string): Promise<URL> => {
+        return this.repository.findOne({shortUrlId})
+    }
+
     public getURLByLongURL = async (user: User, longURL: string): Promise<URL> => {
         return this.repository.findOne({user, longURL})
     }

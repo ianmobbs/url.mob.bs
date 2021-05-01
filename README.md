@@ -18,7 +18,7 @@ You've been asked to make an internal service for shortening URLs that anyone in
 
 - [x] URLs can be randomly generated (via any method you choose), or specified upon creation
 
-- [ ] No duplicate URLs are allowed to be created
+- [x] No duplicate URLs are allowed to be created
 
 - [x] Short links can not be easily enumerated
 
