@@ -11,6 +11,6 @@ export default class Click {
     url: URL;
 
     @Column()
-    @CreateDateColumn({ name: "create_time" })
+    @CreateDateColumn()
     timestamp: Date;
 }

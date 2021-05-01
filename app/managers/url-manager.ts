@@ -1,6 +1,6 @@
 import DB from "../db/db";
 import URL from "../model/entities/URL";
-import {Repository} from "typeorm";
+import {MoreThan, Repository} from "typeorm";
 import User from "../model/entities/User";
 
 export default class URLManager {

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique, OneToMany, CreateDateColumn} from "typeorm";
 import User from "./User";
 import Click from "./Click";
 
@@ -20,4 +20,6 @@ export default class URL {
     @Column()
     longURL: string;
 
+    @Column({nullable: true, default: null})
+    expiration: Date;
 }
