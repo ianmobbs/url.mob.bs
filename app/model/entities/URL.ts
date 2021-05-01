@@ -21,5 +21,5 @@ export default class URL {
     longURL: string;
 
     @Column({nullable: true, default: null})
-    expiration: Date;
+    expiration: number; // ms since epoch time
 }

@@ -31,6 +31,7 @@ export default class URLRouter {
         this.router.post('/', async (ctx: ParameterizedContext) => {
             const longUrl: string = ctx.request.body.longUrl;
             const shortUrlId: string | undefined = ctx.request.body.urlId;
+            const expiration: number | undefined = parseInt(ctx.request.body.expiration);
             if (!longUrl || !this.isValidUrl(longUrl)) {
                 ctx.body = {
                     "error": "Please provide a valid long URL in the longUrl property of your request body"
@@ -38,9 +39,18 @@ export default class URLRouter {
                 ctx.status = 400
                 return;
             }
+            const expirationTime = new Date(expiration).getTime()
+            const currentTime = new Date().getTime()
+            if (expiration && expirationTime < currentTime) {
+                ctx.body = {
+                    "error": `Your expiration ${expirationTime} is ${currentTime - expirationTime}ms less than the current time ${new Date().getTime()}`
+                }
+                ctx.status = 400
+                return;
+            }
 
             try {
-                const urlObj = await this.urlService.generateShortUrl(ctx.state.user, longUrl, shortUrlId)
+                const urlObj = await this.urlService.generateShortUrl(ctx.state.user, longUrl, shortUrlId, expiration)
                 ctx.body = {
                     url: urlObj.shortUrlId
                 }
@@ -52,6 +62,7 @@ export default class URLRouter {
                     }
                     ctx.status = 409
                 } else {
+                    console.log(e);
                     ctx.body = {
                         "error": e
                     }
