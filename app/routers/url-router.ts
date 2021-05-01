@@ -1,11 +1,15 @@
 import Router from '@koa/router';
 import { ParameterizedContext } from 'koa';
+import URLService from "../services/url-service";
 
 export default class URLRouter {
     private router: Router;
 
+    private urlService: URLService;
+
     constructor() {
         this.router = new Router();
+        this.urlService = new URLService();
     }
 
     public init = (): Router => {
@@ -16,24 +20,47 @@ export default class URLRouter {
     private setupRoutes = () => {
         // Create new short URL
         this.router.post('/', (ctx: ParameterizedContext) => {
-            ctx.body = {
-                "url": ctx.request.body.urlID ?? this.generateId()
+            const longUrl: string = ctx.request.body.longUrl;
+            const shortUrlId: string | undefined = ctx.request.body.urlId;
+            if (!longUrl || !this.isValidUrl(longUrl)) {
+                ctx.body = {
+                    "error": "Please provide a valid long URL in the longUrl property of your request body"
+                }
+                ctx.status = 400
+                return;
             }
+
+            const shortUrl = this.urlService.generateShortUrl(longUrl, shortUrlId)
+            ctx.body = {
+                url: shortUrl
+            }
+            ctx.status = 200
         });
 
         // Get the long URL for a shortened URL ID
-        this.router.get('/:shortUrlID', (ctx: ParameterizedContext) => {
-            ctx.body = {
-                "url": ctx.params.shortUrlID
+        this.router.get('/:shortUrlId', (ctx: ParameterizedContext) => {
+            const shortUrlId = ctx.params.shortUrlId;
+            if (!shortUrlId) {
+                ctx.body = {
+                    "error": "Please provide a short URL ID"
+                }
+                ctx.status = 400
             }
+
+            const longUrl = this.urlService.getLongUrl(shortUrlId);
+            ctx.body = {
+                url: longUrl
+            }
+            ctx.status = 200
         });
     }
 
-    private generateId = (len: number = 8): string => {
-        var text = "";
-        var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        for (var i = 0; i < len; i++)
-            text += charset.charAt(Math.floor(Math.random() * charset.length));
-        return text;
+    private isValidUrl = (text: string) => {
+        try {
+            const url = new URL(text);
+            return url.protocol === "http:" || url.protocol === "https:";
+        } catch (_) {
+            return false;
+        }
     }
 }
