@@ -3,6 +3,7 @@ import Router from '@koa/router';
 import ApiRouter from "./app/routers/api-router";
 import bodyParser from 'koa-bodyparser';
 import 'reflect-metadata';
+import UserAuth from "./app/middleware/user-auth";
 
 const PORT = 3000;
 
@@ -19,6 +20,7 @@ export class App {
         this.setupRoutes();
         this.app.use(bodyParser());
         this.app.use(this.log);
+        this.app.use(new UserAuth().getMiddleware());
         this.app.use(this.rootRouter.routes());
     }
 
@@ -31,7 +33,7 @@ export class App {
         const startTime = new Date().getTime();
         await next();
         const endTime = new Date().getTime();
-        console.log(`${ctx.request.method} ${ctx.request.url}\t${endTime - startTime}ms`);
+        console.log(`${ctx.response.status}\t${ctx.request.method} ${ctx.request.url}\t${endTime - startTime}ms`);
     }
 
     private setupRoutes = () => {

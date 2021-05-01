@@ -30,7 +30,7 @@ export default class URLRouter {
                 return;
             }
 
-            const urlObj = await this.urlService.generateShortUrl(longUrl, shortUrlId)
+            const urlObj = await this.urlService.generateShortUrl(ctx.state.user, longUrl, shortUrlId)
             ctx.body = {
                 url: urlObj.shortUrlId
             }
@@ -45,9 +45,18 @@ export default class URLRouter {
                     "error": "Please provide a short URL ID"
                 }
                 ctx.status = 400
+                return;
             }
 
-            const urlObj = await this.urlService.getLongUrl(shortUrlId);
+            const urlObj = await this.urlService.getLongUrl(ctx.state.user, shortUrlId);
+            if (!urlObj) {
+                ctx.body = {
+                    "error": `Could not find URL with ID ${shortUrlId}`
+                }
+                ctx.status = 404
+                return;
+            }
+
             ctx.body = {
                 url: urlObj.longURL
             }

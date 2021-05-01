@@ -1,6 +1,7 @@
 import DB from "../db/db";
 import URL from "../model/entities/URL";
 import {Repository} from "typeorm";
+import User from "../model/entities/User";
 
 export default class URLManager {
     private repository: Repository<URL>;
@@ -9,16 +10,16 @@ export default class URLManager {
         this.setupRepository()
     }
 
-    public createUrl = async (shortUrlId: string, longURL: string): Promise<URL> => {
+    public createUrl = async (user: User, shortUrlId: string, longURL: string): Promise<URL> => {
         return this.repository.save({
+            user,
             shortUrlId,
             longURL,
-            user: 'ianmobbs'
         })
     }
 
-    public getUrl = async (shortUrlId: string): Promise<URL> => {
-        return this.repository.findOne({shortUrlId});
+    public getUrl = async (user: User, shortUrlId: string): Promise<URL> => {
+        return this.repository.findOne({user, shortUrlId});
     }
 
     private setupRepository = async () => {

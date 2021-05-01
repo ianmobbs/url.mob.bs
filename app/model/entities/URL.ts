@@ -1,15 +1,16 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, Unique} from "typeorm";
+import User from "./User";
 
 @Entity()
 export default class URL {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
-    @Column()
-    user: string;
+    @ManyToOne(() => User)
+    user: User;
 
-    @Column()
+    @Column({unique: true})
     shortUrlId: string;
 
     @Column()

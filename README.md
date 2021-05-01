@@ -2,6 +2,11 @@
 
 url.mob.bs is a URL shortening web service similar to bit.ly or TinyURL.	
 
+## Instructions
+
+- Build the Docker container with `docker build -t url.mob.bs:latest .`
+- Run the Docker container with `docker run -d -p 8080:3000 url.mob.bs:latest`
+
 ## Requirements
 
 ### Proposal

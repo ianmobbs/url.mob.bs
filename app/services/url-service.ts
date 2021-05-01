@@ -1,5 +1,6 @@
 import URLManager from "../managers/url-manager";
 import URL from "../model/entities/URL";
+import User from "../model/entities/User";
 
 export default class URLService {
     private urlManager: URLManager;
@@ -8,17 +9,13 @@ export default class URLService {
         this.urlManager = new URLManager();
     }
 
-    public generateShortUrl = async (longUrl: string, shortUrlId?: string): Promise<URL> => {
+    public generateShortUrl = async (user: User, longUrl: string, shortUrlId?: string): Promise<URL> => {
         const shortId = shortUrlId ?? this.generateId();
-        const urlObj = await this.urlManager.createUrl(shortId, longUrl);
-        console.log(`Created ${JSON.stringify(urlObj)}`)
-        return urlObj
+        return this.urlManager.createUrl(user, shortId, longUrl);
     }
 
-    public getLongUrl = async (shortUrlId: string): Promise<URL> => {
-        const urlObj = await this.urlManager.getUrl(shortUrlId);
-        console.log(`Received ${JSON.stringify(urlObj)}`)
-        return urlObj;
+    public getLongUrl = async (user: User, shortUrlId: string): Promise<URL> => {
+        return this.urlManager.getUrl(user, shortUrlId);
     }
 
     private generateId = (len: number = 8): string => {
