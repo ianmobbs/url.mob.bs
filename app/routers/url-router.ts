@@ -62,6 +62,32 @@ export default class URLRouter {
             }
             ctx.status = 200
         });
+
+        this.router.delete('/:shortUrlId', async (ctx: ParameterizedContext) => {
+            const shortUrlId = ctx.params.shortUrlId;
+            if (!shortUrlId) {
+                ctx.body = {
+                    "error": "Please provide a short URL ID"
+                }
+                ctx.status = 400
+                return;
+            }
+
+            const urlObj = await this.urlService.getLongUrl(ctx.state.user, shortUrlId);
+            if (!urlObj) {
+                ctx.body = {
+                    "error": `Could not find URL with ID ${shortUrlId}`
+                }
+                ctx.status = 404
+                return;
+            }
+
+            await this.urlService.deleteShortUrl(ctx.state.user, shortUrlId);
+            ctx.body = {
+                "message": `Deleted ${shortUrlId}`
+            }
+            ctx.status = 204
+        });
     }
 
     private isValidUrl = (text: string) => {

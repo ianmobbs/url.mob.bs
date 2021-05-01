@@ -22,6 +22,12 @@ export default class URLManager {
         return this.repository.findOne({user, shortUrlId});
     }
 
+    public deleteUrl = async (user: User, shortUrlId: string): Promise<URL> => {
+        const urlObjToDelete = this.getUrl(user, shortUrlId);
+        await this.repository.delete({user, shortUrlId})
+        return urlObjToDelete;
+    }
+
     private setupRepository = async () => {
         const connection = await new DB().getConnection();
         this.repository = connection.getRepository(URL);

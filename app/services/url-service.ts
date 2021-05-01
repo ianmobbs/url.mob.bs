@@ -18,6 +18,10 @@ export default class URLService {
         return this.urlManager.getUrl(user, shortUrlId);
     }
 
+    public deleteShortUrl = async (user: User, shortUrlId: string): Promise<URL> => {
+        return this.urlManager.deleteUrl(user, shortUrlId)
+    }
+
     private generateId = (len: number = 8): string => {
         var text = "";
         var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

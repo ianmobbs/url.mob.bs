@@ -14,7 +14,8 @@ export default class UserAuth {
     getMiddleware = () => {
         return async (ctx: ParameterizedContext, next) => {
             const allowlistedPaths = [
-                '/api/accounts/'
+                '/api/accounts/',
+                '/api/status'
             ]
 
             if (allowlistedPaths.includes(ctx.request.url)) {
