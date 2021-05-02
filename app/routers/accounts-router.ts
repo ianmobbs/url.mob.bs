@@ -21,9 +21,17 @@ export default class AccountsRouter {
         this.router.post('/', async (ctx) => {
             const email = ctx.request.body.email;
             const password = ctx.request.body.password;
+            const passwordConfirmation = ctx.request.body.passwordConfirmation;
             if (!email || !password) {
                 ctx.response.body = {
-                    "error": "Please provide email and password in your POST request."
+                    "error": "Please provide email and password in your request."
+                }
+                ctx.status = 400;
+                return;
+            }
+            if (passwordConfirmation && passwordConfirmation != password) {
+                ctx.response.body = {
+                    "error": "Your password and password confirmation did not match."
                 }
                 ctx.status = 400;
                 return;
@@ -48,7 +56,7 @@ export default class AccountsRouter {
                 }
             }
             ctx.response.body = {
-                "message": `Successfully created user ${email}`
+                "message": `Successfully created user ${email}. Please log in now.`
             }
             ctx.response.status = 201
 

@@ -1,5 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom';
+import {Login} from "./Login";
 
-let Greet = () => <h1>Hello, world!</h1>
-ReactDOM.render(<Greet />, document.getElementById("main"))
+const App = () => {
+    return (
+        <>
+            <h1>url.mob.bs</h1>
+            <Login />
+        </>
+    )
+}
+ReactDOM.render(<App />, document.getElementById("main"))

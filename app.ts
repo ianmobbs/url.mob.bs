@@ -5,6 +5,8 @@ import bodyParser from 'koa-bodyparser';
 import 'reflect-metadata';
 import UserAuth from "./app/middleware/user-auth";
 import RedirectRouter from "./app/routers/redirect-router";
+import cors from '@koa/cors';
+import serve from 'koa-static';
 
 const PORT = 3000;
 
@@ -22,6 +24,8 @@ export class App {
 
         this.setupRoutes();
         this.app.use(bodyParser());
+        this.app.use(cors())
+        this.app.use(serve(__dirname + '/public'))
         this.app.use(this.log);
         this.app.use(this.redirectRouter.init().routes()); // Need to add redirect router before user auth middleware
         this.app.use(new UserAuth().getMiddleware());

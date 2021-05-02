@@ -84,6 +84,21 @@ curl -X "DELETE" "http://localhost:3000/api/urls/eev5MgTE" \
      -u 'email:password' \
 ```
 
+## Architecture
+```
+.
+├── Dockerfile       -- Dockerfile for building and distributing the project 
+├── README.md        -- General information
+├── app/             -- app/ contains all the backend code for the application   
+├── app.ts           -- app.ts is the entrypoint to the backend of the application
+├── client/          -- client/ contains all of the frontend code for the application
+├── ormconfig.json   -- config file for TypeORM
+├── package.json     -- Contains build dependencies and scripts for both backend and frontend
+├── public/          -- Contains the built frontend and base files (index.html)
+├── tsconfig.json    -- Contains Typescript configuration
+└── yarn.lock        -- Contains depency versions to lock dependencies
+```
+
 ## Requirements
 
 ### Proposal
