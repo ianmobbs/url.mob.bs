@@ -54,11 +54,6 @@ export default class AccountsRouter {
 
         })
 
-        // Get user
-        this.router.get('/:userId', async (ctx) => {
-
-        });
-
         return this.router;
     }
 }

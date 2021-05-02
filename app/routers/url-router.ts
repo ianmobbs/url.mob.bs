@@ -30,7 +30,7 @@ export default class URLRouter {
         // Create new short URL
         this.router.post('/', async (ctx: ParameterizedContext) => {
             const longUrl: string = ctx.request.body.longUrl;
-            const shortUrlId: string | undefined = ctx.request.body.urlId;
+            const shortUrlId: string | undefined = ctx.request.body.shortUrlId;
             const expiration: number | undefined = parseInt(ctx.request.body.expiration);
             if (!longUrl || !this.isValidUrl(longUrl)) {
                 ctx.body = {

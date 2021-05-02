@@ -4,8 +4,85 @@ url.mob.bs is a URL shortening web service similar to bit.ly or TinyURL.
 
 ## Instructions
 
+### Local
+- Make sure you have `yarn` and `nvm` installed
+- `nvm use && yarn`
+- `yarn start`
+
+### Docker
 - Build the Docker container with `docker build -t url.mob.bs:latest .`
-- Run the Docker container with `docker run -d -p 8080:3000 url.mob.bs:latest`
+- Run the Docker container with `docker run -d -p 3000:3000 url.mob.bs:latest`
+
+## Documentation
+
+### Authentication
+
+These APIs require you to authenticate using the standard `Authorization: Bearer base64(username:password)` scheme.
+This can be done with curls `-u` option (`-u username:password`).
+
+### APIs
+
+#### Accounts
+
+Create user  
+```
+curl -X "POST" "http://localhost:3000/api/accounts/" \
+-d $'{
+"email": "email",
+"password": "password"
+}'
+```
+
+#### Analytics
+
+Get overall analytics
+```
+curl "http://localhost:3000/api/analytics" \
+     -u 'email:password'
+```
+
+Get analytics for an individual URL
+```
+curl "http://localhost:3000/api/analytics/SHORT_URL_ID" \
+-u 'email:password'
+```
+
+#### Redirects
+
+Redirect to a long URL from a short URL ID
+```
+curl "http://localhost:3000/SOME_SHORT_URL_ID
+```
+
+#### URLs
+Get all URLs
+```
+curl "http://localhost:3000/api/urls/" \
+-u 'email:password'
+```
+
+Create new URL
+```
+curl -X "POST" "http://localhost:3000/api/urls/" \
+     -u 'email:password' \
+     -d $'{
+  "shortUrlId": "SOME_SHORT_URL_ID" # Optional
+  "longUrl": "http://mob.bs",
+  "expiration": "1619916173354" # Optional
+}'
+```
+
+Get individual URL
+```
+curl "http://localhost:3000/api/urls/SOME_SHORT_URL_ID" \
+     -u 'email:password'
+```
+
+Delete individual URL
+```
+curl -X "DELETE" "http://localhost:3000/api/urls/eev5MgTE" \
+     -u 'email:password' \
+```
 
 ## Requirements
 
