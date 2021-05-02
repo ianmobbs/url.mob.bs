@@ -57,8 +57,7 @@ export const Login = (props) => {
             setMessage(response.data.message)
             props.checkAuthCookie()
         } catch (e) {
-            console.log(e);
-            setMessage(e.response.data.error)
+            setMessage(`Error: ${e?.response?.data?.error}`)
         }
     }
 
@@ -100,7 +99,7 @@ export const Login = (props) => {
 
                     <>{message != '' && message}<br/></>
 
-                    <button type="submit" value="Register" onClick={sendLoginRequest}>Register</button><br />
+                    <button type="submit" value="Login" onClick={sendLoginRequest}>Login</button><br />
                 </form>
 
             </>

@@ -11,9 +11,10 @@ export default class URLManager {
     }
 
     public getAllURLsForUser = async (user: User): Promise<URL[]> => {
-        return this.repository.createQueryBuilder()
+        return this.repository.createQueryBuilder("url")
+            .leftJoinAndSelect("url.clicks", "clicks")
             .where(
-                "url.userId = :userId and expiration is null or expiration > :expirationTime",
+                "url.userId = :userId and (expiration is null or expiration > :expirationTime)",
                 {userId: user.id, expirationTime: new Date().getTime()}
             )
             .getMany();

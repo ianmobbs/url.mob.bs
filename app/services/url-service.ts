@@ -10,7 +10,7 @@ export default class URLService {
         this.urlManager = new URLManager();
     }
 
-    public getAllURLsForUser = (user: User): Promise<URL[]> => {
+    public getAllURLsForUser = async (user: User): Promise<URL[]> => {
         return this.urlManager.getAllURLsForUser(user);
     }
 
