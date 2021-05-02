@@ -94,7 +94,10 @@ export default class AccountsRouter {
             ctx.cookies.set(
                 'authCookie',
                 this.generateLoginCookie(email, password),
-                {expires: MILLISECONDS_IN_DAY + Date.now()}
+                {
+                    expires: new Date(MILLISECONDS_IN_DAY + Date.now()),
+                    httpOnly: false
+                }
             );
             ctx.body = {
                 "message": `Successfully logged ${email} in`

@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom';
 import axios from "axios";
 
-export const Login = () => {
+export const Login = (props) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
@@ -55,8 +55,9 @@ export const Login = () => {
         try {
             const response = await axios.post('/api/accounts/login', body)
             setMessage(response.data.message)
+            props.checkAuthCookie()
         } catch (e) {
-            console.log(e.response.data);
+            console.log(e);
             setMessage(e.response.data.error)
         }
     }
