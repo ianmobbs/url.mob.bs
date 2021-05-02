@@ -22,7 +22,7 @@ You've been asked to make an internal service for shortening URLs that anyone in
 
 - [x] Short links can not be easily enumerated
 
-- [ ] Short links can expire at a future time, or can live forever
+- [x] Short links can expire at a future time, or can live forever
 
 - [x] Short links can be deleted
 
