@@ -14,7 +14,7 @@ As _ has grown, so has its need to keep track of quickly referenced internal and
 
 You've been asked to make an internal service for shortening URLs that anyone in the company can use. You can implement it in anyway you see fit, including whatever backend and frontend functionality that you think makes sense. Please try to make it both end user and developer friendly (so that we can integrate it with existing systems or chat bots, for example).
 
-- [ ] This URL shortener should have a well defined API for URLs created, including analytics of usage
+- [x] This URL shortener should have a well defined API for URLs created, including analytics of usage
 
 - [x] URLs can be randomly generated (via any method you choose), or specified upon creation
 
@@ -30,7 +30,7 @@ You've been asked to make an internal service for shortening URLs that anyone in
 
 - [x] This project should be able to be runnable locally within a docker container and some simple instructions
 
-- [ ] This project's documentation should include build and deploy instruction
+- [x] This project's documentation should include build and deploy instruction
 
 - [ ] Tests should be provided and able to be executed locally or within a test environment.
 
