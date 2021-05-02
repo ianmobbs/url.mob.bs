@@ -12,12 +12,12 @@ export default class AuthService {
         return bcrypt.compare(plaintextPassword, hashedPassword);
     }
 
-    // public toBase64 = (text: string): string => {
-    //     if (!text) {
-    //         return '';
-    //     }
-    //     return Buffer.from(text).toString('base64')
-    // }
+    public toBase64 = (text: string): string => {
+        if (!text) {
+            return '';
+        }
+        return Buffer.from(text).toString('base64')
+    }
 
     public fromBase64 = (text: string): string => {
         if (!text) {

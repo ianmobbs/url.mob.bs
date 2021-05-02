@@ -46,8 +46,24 @@ export const Login = () => {
         }
     }
 
+    const sendLoginRequest = async(e) => {
+        e.preventDefault();
+        const body = {
+            email,
+            password
+        }
+        try {
+            const response = await axios.post('/api/accounts/login', body)
+            setMessage(response.data.message)
+        } catch (e) {
+            console.log(e.response.data);
+            setMessage(e.response.data.error)
+        }
+    }
+
     const getSignupPane = () => {
         return (<>
+            <h2>Registration</h2>
             <form>
                 <label htmlFor="email">Email:</label><br />
                 <input type="email" id="email" name="email"
@@ -69,7 +85,25 @@ export const Login = () => {
     }
 
     const getLoginPane = () => {
-        return <>Login</>
+        return (
+            <>
+                <h2>Login</h2>
+                <form>
+                    <label htmlFor="email">Email:</label><br />
+                    <input type="email" id="email" name="email"
+                           value={email} onChange={handleFormChange(setEmail)}/><br />
+
+                    <label htmlFor="password">Password:</label><br />
+                    <input type="password" id="password" name="password"
+                           value={password} onChange={handleFormChange(setPassword)} /><br />
+
+                    <>{message != '' && message}<br/></>
+
+                    <button type="submit" value="Register" onClick={sendLoginRequest}>Register</button><br />
+                </form>
+
+            </>
+        )
     }
 
     return (
