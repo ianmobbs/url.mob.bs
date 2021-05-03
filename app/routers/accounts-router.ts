@@ -4,7 +4,7 @@ import UserAlreadyExistsError from "../exception/user-already-exists-error";
 import AccountsManager from "../managers/accounts-manager";
 import AuthService from "../services/auth-service";
 
-const MILLISECONDS_IN_DAY = 86400;
+const MILLISECONDS_IN_DAY = 86400000;
 
 export default class AccountsRouter {
     private router: Router;
