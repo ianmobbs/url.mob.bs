@@ -101,7 +101,6 @@ export const Login = (props) => {
 
                     <button type="submit" value="Login" onClick={sendLoginRequest}>Login</button><br />
                 </form>
-
             </>
         )
     }
