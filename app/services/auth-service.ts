@@ -25,4 +25,8 @@ export default class AuthService {
         }
         return Buffer.from(text, 'base64').toString('binary')
     }
+
+    public generateLoginCookieValue = (email: string, password: string): string => {
+        return this.toBase64(`${email}:${password}`)
+    }
 }

@@ -71,7 +71,7 @@ export const URLPane = () => {
             <>
                 <h2>Create URL</h2>
                 <form>
-                    <label htmlFor="longURL">Long URL:</label><br />
+                    <label htmlFor="longURL">Long URL (must prefix with http://):</label><br />
                     <input id="longURL" name="longURL"
                            value={longUrl} onChange={handleFormChange(setLongUrl)}/><br />
 

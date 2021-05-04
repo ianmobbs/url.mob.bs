@@ -63,6 +63,14 @@ export default class AccountsRouter {
                     return;
                 }
             }
+            ctx.cookies.set(
+                'authCookie',
+                this.authService.generateLoginCookieValue(email, password),
+                {
+                    expires: new Date(MILLISECONDS_IN_DAY + Date.now()),
+                    httpOnly: false
+                }
+            );
             ctx.response.body = {
                 "message": `Successfully created user ${email}. Please log in now.`
             }
@@ -93,7 +101,7 @@ export default class AccountsRouter {
 
             ctx.cookies.set(
                 'authCookie',
-                this.generateLoginCookie(email, password),
+                this.authService.generateLoginCookieValue(email, password),
                 {
                     expires: new Date(MILLISECONDS_IN_DAY + Date.now()),
                     httpOnly: false
@@ -106,9 +114,5 @@ export default class AccountsRouter {
         });
 
         return this.router;
-    }
-
-    private generateLoginCookie = (email: string, password: string): string => {
-        return this.authService.toBase64(`${email}:${password}`)
     }
 }
