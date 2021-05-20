@@ -31,8 +31,12 @@ describe('url-service.ts unit tests', () => {
         it('should return an array of URLs', async () => {
             MOCK_URL_MANAGER.getAllURLsForUser.mockReturnValue([MOCK_URL])
             const urls = await urlService.getAllURLsForUser(mockUser)
-            expect(MOCK_URL_MANAGER.getAllURLsForUser).toBeCalledWith(mockUser)
             expect(urls).toEqual([MOCK_URL]);
+        })
+
+        it('should call the url manager with the user passed to the service', () => {
+            urlService.getAllURLsForUser(mockUser)
+            expect(MOCK_URL_MANAGER.getAllURLsForUser).toBeCalledWith(mockUser)
         })
     })
 })

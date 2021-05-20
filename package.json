@@ -24,7 +24,8 @@
   "scripts": {
     "start": "yarn build && ts-node app.ts",
     "lint": "eslint --fix --ext .ts app/",
-    "build": "esbuild client/App.jsx --bundle --minify --sourcemap --target=chrome58,firefox57 --outfile=public/js/out.js"
+    "build": "esbuild client/App.jsx --bundle --minify --sourcemap --target=chrome58,firefox57 --outfile=public/js/out.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
