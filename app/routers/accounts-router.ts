@@ -1,5 +1,5 @@
 import Router from '@koa/router';
-import {UserService} from "../services/user-service";
+import UserService from "../services/user-service";
 import UserAlreadyExistsError from "../exception/user-already-exists-error";
 import AccountsManager from "../managers/accounts-manager";
 import AuthService from "../services/auth-service";

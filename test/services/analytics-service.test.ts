@@ -1,10 +1,6 @@
-import {MOCK_CLICK, MOCK_URL, MOCK_USER} from "../mocks";
+import {MOCK_CLICK, MOCK_CLICK_MANAGER, MOCK_URL, MOCK_USER} from "../mocks";
 
-const MOCK_CLICK_MANAGER = {
-    init: jest.fn(),
-    getAllClicksForUser: jest.fn(),
-    getAllClicksForUrl: jest.fn()
-}
+
 jest.mock('@app/managers/click-manager.ts', () => {
     return jest.fn().mockImplementation(() => MOCK_CLICK_MANAGER);
 });

@@ -9,10 +9,13 @@ export const MOCK_URL_MANAGER = {
     getURLByLongURL: jest.fn(),
     getURLByShortIDAndUser: jest.fn()
 }
+export const MOCK_USER_ID = 'userId12345'
+export const MOCK_USERNAME = 'ian@ian.ian'
+export const MOCK_PASSWORD_HASH = '$2$ab$password'
 export const MOCK_USER: User = {
-    id: '12345',
-    email: 'ianmobbs@gmail.com',
-    passwordHash: '12345'
+    id: MOCK_USER_ID,
+    email: MOCK_USERNAME,
+    passwordHash: MOCK_PASSWORD_HASH
 }
 export const MOCK_SHORT_URL_ID = 'abcdef';
 export const MOCK_LONG_URL = 'google.com';
@@ -32,4 +35,23 @@ export const MOCK_CLICK: Click = {
     id: MOCK_CLICK_ID,
     timestamp: MOCK_CLICK_TIMESTAMP,
     url: MOCK_URL
+}
+export const MOCK_CLICK_MANAGER = {
+    init: jest.fn(),
+    getAllClicksForUser: jest.fn(),
+    getAllClicksForUrl: jest.fn()
+}
+export const MOCK_ACCOUNTS_MANAGER = {
+    init: jest.fn(),
+    createUser: jest.fn(),
+    getUser: jest.fn(),
+    setupRepository: jest.fn()
+}
+export const MOCK_AUTH_SERVICE = {
+    init: jest.fn(),
+    hashPassword: jest.fn(),
+    checkPassword: jest.fn(),
+    toBase64: jest.fn(),
+    fromBase64: jest.fn(),
+    generateLoginCookieValue: jest.fn()
 }
