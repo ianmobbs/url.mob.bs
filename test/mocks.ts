@@ -11,7 +11,9 @@ export const MOCK_URL_MANAGER = {
 }
 export const MOCK_USER_ID = 'userId12345'
 export const MOCK_USERNAME = 'ian@ian.ian'
-export const MOCK_PASSWORD_HASH = '$2$ab$password'
+export const MOCK_PASSWORD_SALT = MOCK_USERNAME
+export const MOCK_PASSWORD = 'password'
+export const MOCK_PASSWORD_HASH = '$2$bapassword'
 export const MOCK_USER: User = {
     id: MOCK_USER_ID,
     email: MOCK_USERNAME,
@@ -55,3 +57,6 @@ export const MOCK_AUTH_SERVICE = {
     fromBase64: jest.fn(),
     generateLoginCookieValue: jest.fn()
 }
+export const MOCK_TEXT = 'abcdefghijklmnopqrstuvwxyz0123456789'
+export const MOCK_TEXT_BASE_64_ENCODED = 'YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXowMTIzNDU2Nzg5';
+export const MOCK_AUTH_COOKIE_VALUE = 'aWFuQGlhbi5pYW46cGFzc3dvcmQ='

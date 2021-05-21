@@ -124,5 +124,5 @@ You've been asked to make an internal service for shortening URLs that anyone in
 
 - [x] This project's documentation should include build and deploy instruction
 
-- [ ] Tests should be provided and able to be executed locally or within a test environment.
+- [x] Tests should be provided and able to be executed locally or within a test environment.
 
