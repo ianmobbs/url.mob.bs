@@ -1,37 +1,11 @@
-import User from "../../app/model/entities/User";
-
-const MOCK_URL_MANAGER = {
-    init: jest.fn(),
-    getAllURLsForUser: jest.fn(),
-    createUrl: jest.fn(),
-    getURLByLongURL: jest.fn(),
-    getURLByShortIDAndUser: jest.fn()
-}
-const MOCK_USER: User = {
-    id: '12345',
-    email: 'ianmobbs@gmail.com',
-    passwordHash: '12345'
-}
-const MOCK_SHORT_URL_ID = 'abcdef';
-const MOCK_LONG_URL = 'google.com';
-const MOCK_URL_ID = '12345';
-const MOCK_URL_EXPIRATION = 12345;
-const MOCK_URL: URL = {
-    clicks: [],
-    id: MOCK_URL_ID,
-    user: MOCK_USER,
-    shortUrlId: MOCK_SHORT_URL_ID,
-    longURL: MOCK_LONG_URL,
-    expiration: MOCK_URL_EXPIRATION
-};
+import {MOCK_LONG_URL, MOCK_SHORT_URL_ID, MOCK_URL, MOCK_URL_EXPIRATION, MOCK_URL_MANAGER, MOCK_USER} from "../mocks";
+import URLAlreadyExistsError from "../../app/exception/url-already-exists-error";
 
 jest.mock('@app/managers/url-manager.ts', () => {
     return jest.fn().mockImplementation(() => MOCK_URL_MANAGER);
 });
 
 import URLService from "../../app/services/url-service";
-import URL from "../../app/model/entities/URL";
-import URLAlreadyExistsError from "../../app/exception/url-already-exists-error";
 const urlService = new URLService();
 
 describe('url-service.ts unit tests', () => {
